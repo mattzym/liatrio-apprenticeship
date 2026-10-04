@@ -1,16 +1,20 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
+	"time"
+
+	"github.com/gofiber/fiber/v2"
 )
 
-func hello(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, "hello\n")
-}
+func main() {
+	app := fiber.New()
 
-func main () {
-	http.HandleFunc("/hello", hello)
-	http.ListenAndServe(":8090", nil)
-}
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.JSON(fiber.Map{
+			"message":   "My name is Matthew",
+			"timestamp": 12312344,
+		})
+	})
 
+	app.Listen(":3000")
+}
