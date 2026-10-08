@@ -25,5 +25,8 @@ jobs:
       - name: Verify AWS identity
         run: aws sts get-caller-identity
 
-      - name: Show image to deploy
-        run: echo "Would deploy mattzym/liatrio-app:${{ github.event.workflow_run.head_sha }}"
+      - name: Deploy versioned image to ECS
+        run: |
+          aws ecs update-express-gateway-service \
+            --service-arn ${{ vars.ECS_SERVICE_ARN }} \
+            --primary-container image=docker.io/mattzym/liatrio-app:${{ github.event.workflow_run.head_sha }}
