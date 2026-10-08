@@ -25,8 +25,14 @@ jobs:
       - name: Verify AWS identity
         run: aws sts get-caller-identity
 
-      - name: Deploy versioned image to ECS
-        run: |
-          aws ecs update-express-gateway-service \
-            --service-arn ${{ vars.ECS_SERVICE_ARN }} \
-            --primary-container image=docker.io/mattzym/liatrio-app:${{ github.event.workflow_run.head_sha }}
+      - name: Deploy to ECS Express Mode
+        id: deploy
+        uses: aws-actions/amazon-ecs-deploy-express-service@v1
+        with:
+          service-name: liatrio-app-4554
+          cluster: default
+          image: docker.io/mattzym/liatrio-app:${{ github.event.workflow_run.head_sha }}
+          execution-role-arn: arn:aws:iam::174302434325:role/service-role/ecsTaskExecutionRole
+          infrastructure-role-arn: arn:aws:iam::174302434325:role/service-role/ecsInfrastructureRoleForExpressServices
+          container-port: 3000
+          health-check-path: /
