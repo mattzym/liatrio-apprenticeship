@@ -36,3 +36,21 @@ jobs:
           infrastructure-role-arn: arn:aws:iam::174302434325:role/service-role/ecsInfrastructureRoleForExpressServices
           container-port: 3000
           health-check-path: /
+      - name: Verify the deployed response
+        env:
+          ENDPOINT: ${{ steps.deploy.outputs.endpoint }}
+        run: |
+          URL="$ENDPOINT"
+          case "$URL" in http*) ;; *) URL="https://$URL" ;; esac
+          echo "Checking $URL"
+          for i in $(seq 1 10); do
+            RESPONSE=$(curl -s "$URL")
+            echo "$RESPONSE"
+            if echo "$RESPONSE" | grep -q '"environment"'; then
+              echo "New field is live"
+              exit 0
+            fi
+            sleep 15
+          done
+          echo "Expected field not found in the live response"
+          exit 1
