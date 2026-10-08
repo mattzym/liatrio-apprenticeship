@@ -15,6 +15,7 @@ func main() {
 			"timestamp": time.Now().UnixMilli(),
 			"environment": "aws",
 			"deployed_by": "github-actions",
+			"animal": "cat",
 		})
 	})
 
