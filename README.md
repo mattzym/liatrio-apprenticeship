@@ -14,6 +14,7 @@ The application exposes a single endpoint:
 
 ```text
 GET /
+```
 
 ## CI/CD
 
