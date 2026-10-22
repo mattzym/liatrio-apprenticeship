@@ -17,14 +17,14 @@ jobs:
 
     steps:
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v5
+        uses: aws-actions/configure-aws-credentials@v5.1.1
         with:
           aws-region: ${{ vars.AWS_REGION }}
           role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/github-actions-deploy-role
 
       - name: Deploy to ECS Express Mode
         id: deploy
-        uses: aws-actions/amazon-ecs-deploy-express-service@v1
+        uses: aws-actions/amazon-ecs-deploy-express-service@v1.2.2
         with:
           service-name: liatrio-app-4554
           cluster: default
