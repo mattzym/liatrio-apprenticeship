@@ -12,6 +12,9 @@ workflows:
     '.github/workflows/deploy.yml':
         - 'aws-actions/amazon-ecs-deploy-express-service@v1.2.2'
         - 'aws-actions/configure-aws-credentials@v6.3.0'
+    '.github/workflows/release.yml':
+        - 'actions/checkout@v7.0.1'
+        - 'paulhatch/semantic-version@v6.0.2'
 dependencies:
     'actions/checkout@v7.0.1':
         ref: 'v7.0.1'
@@ -55,3 +58,8 @@ dependencies:
         repo_id: 246957983
         uses:
             - 'actions/setup-node@v3'
+    'paulhatch/semantic-version@v6.0.2':
+        ref: 'v6.0.2'
+        commit: 'sha1-9f72830310d5ed81233b641ee59253644cd8a8fc'
+        owner_id: 1835615
+        repo_id: 226211955
