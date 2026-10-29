@@ -18,7 +18,7 @@ jobs:
 
       - name: Calculate the next version
         id: semver
-        uses: paulhatch/semantic-version@v6.0.2
+        uses: paulhatch/semantic-version@v6.0.5
 
       - name: Create the GitHub release
         env:
